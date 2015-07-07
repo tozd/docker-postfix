@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+# A stale PID file can prevent rsyslogd from running.
+rm -f /var/run/rsyslogd.pid
+
+exec /usr/sbin/rsyslogd -n -c5 2>&1
