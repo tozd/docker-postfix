@@ -1,22 +1,22 @@
 #!/bin/bash -e
 
 if [ "$MAILNAME" ]; then
-    echo "$MAILNAME" > /etc/mailname
-    postconf -e myhostname="$MAILNAME"
+  echo "$MAILNAME" > /etc/mailname
+  postconf -e myhostname="$MAILNAME"
 fi
 
 if [ "$MY_NETWORKS" ]; then
-    postconf -e mynetworks="$MY_NETWORKS"
+  postconf -e mynetworks="$MY_NETWORKS"
 fi
 
 if [ "$MY_DESTINATION" ]; then
-    postconf -e mydestination="$MY_DESTINATION"
+  postconf -e mydestination="$MY_DESTINATION"
 fi
 
 if [ "$ROOT_ALIAS" ]; then
-    sed -i '/^root:/d' /etc/aliases
-    echo "root: $ROOT_ALIAS" >> /etc/aliases
-    newaliases
+  sed -i '/^root:/d' /etc/aliases
+  echo "root: $ROOT_ALIAS" >> /etc/aliases
+  newaliases
 fi
 
 # Is there any other script to run here?
