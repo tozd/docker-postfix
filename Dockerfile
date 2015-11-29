@@ -3,7 +3,7 @@ FROM tozd/runit
 EXPOSE 25/tcp 465/tcp 587/tcp
 
 ENV MY_NETWORKS 172.17.0.0/16 127.0.0.0/8
-ENV MY_DESTINATION localhost.localdomain localhost
+ENV MY_DESTINATION localhost.localdomain, localhost
 
 # /etc/aliases should be available at postfix installation.
 COPY ./etc/aliases /etc/aliases
@@ -14,7 +14,7 @@ RUN apt-get update -q -q && \
  echo postfix postfix/mynetworks string "127.0.0.0/8" | debconf-set-selections && \
  echo postfix postfix/mailname string temporary.example.com | debconf-set-selections && \
  apt-get --yes --force-yes install postfix && \
- postconf -e mydestination="localhost.localdomain localhost" && \
+ postconf -e mydestination="localhost.localdomain, localhost" && \
  postconf -e smtpd_banner='$myhostname ESMTP $mail_name' && \
  postconf -# myhostname && \
  postconf -e inet_protocols=ipv4 && \

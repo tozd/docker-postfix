@@ -12,7 +12,7 @@ POSTFIX_LOG="${DATA_ROOT}/${NAME}/log"
 export MAILNAME='temporary.example.com'
 export MY_NETWORKS='172.17.0.0/16 127.0.0.0/8'
 export ROOT_ALIAS='somebody@example.com'
-export MY_DESTINATION='localhost.localdomain localhost'
+export MY_DESTINATION='localhost.localdomain, localhost'
 
 mkdir -p "$POSTFIX_DATA"
 mkdir -p "$POSTFIX_LOG"
