@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# Do we want to modify the config first with the script?
+[ -f /etc/service/postfix/run.config ] && source /etc/service/postfix/run.config
+
 if [ "$MAILNAME" ]; then
   echo "$MAILNAME" > /etc/mailname
   postconf -e myhostname="$MAILNAME"
