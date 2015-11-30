@@ -22,12 +22,12 @@ if [ "$ROOT_ALIAS" ]; then
   newaliases
 fi
 
-# Is there any other script to run here?
-[ -f /etc/service/postfix/run.initialization ] && source /etc/service/postfix/run.initialization
-
 # We have to start and stop postfix first through init.d to populate
 # postfix spool directory for chroot in which postfix is running.
 /etc/init.d/postfix start
 /etc/init.d/postfix abort
+
+# Is there any other script to run here?
+[ -f /etc/service/postfix/run.initialization ] && source /etc/service/postfix/run.initialization
 
 exec /usr/lib/postfix/master -c /etc/postfix -d 2>&1

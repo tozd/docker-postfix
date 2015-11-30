@@ -1,8 +1,7 @@
 #!/bin/bash -e
 
-# An example script to run Postifx in production. It uses data volumes under the $DATA_ROOT directory.
-# By default /srv. By default it is configured for sending outbound e-mails. Remember that for the best
-# e-mail delivery external IP should match the hostname it resolves to.
+# An example script to run Postfix in production. It uses data volumes under the $DATA_ROOT directory.
+# By default /srv.
 
 NAME='postfix'
 DATA_ROOT='/srv'
