@@ -2,8 +2,13 @@ FROM tozd/runit
 
 EXPOSE 25/tcp 465/tcp 587/tcp
 
+VOLUME /var/log/postfix
+VOLUME /var/spool/postfix
+
+ENV MAILNAME mail.example.com
 ENV MY_NETWORKS 172.17.0.0/16 127.0.0.0/8
 ENV MY_DESTINATION localhost.localdomain, localhost
+ENV ROOT_ALIAS admin@example.com
 
 # /etc/aliases should be available at postfix installation.
 COPY ./etc/aliases /etc/aliases
