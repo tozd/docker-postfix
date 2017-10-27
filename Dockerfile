@@ -6,7 +6,7 @@ VOLUME /var/log/postfix
 VOLUME /var/spool/postfix
 
 ENV MAILNAME mail.example.com
-ENV MY_NETWORKS 172.17.0.0/16 127.0.0.0/8
+ENV MY_NETWORKS 172.0.0.0/8 127.0.0.0/8
 ENV MY_DESTINATION localhost.localdomain, localhost
 ENV ROOT_ALIAS admin@example.com
 
