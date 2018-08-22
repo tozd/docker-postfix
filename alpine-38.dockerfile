@@ -1,4 +1,4 @@
-FROM tozd/runit:alpine
+FROM tozd/runit:alpine-38
 
 EXPOSE 25/tcp 465/tcp 587/tcp
 
