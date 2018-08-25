@@ -14,7 +14,7 @@ ENV ROOT_ALIAS admin@example.com
 COPY ./etc/aliases /etc/aliases
 
 RUN apk update && \
- apk add postfix postfix-mysql postfix-pcre rsyslog sed && \
+ apk add postfix postfix-pcre rsyslog sed && \
  addgroup -S syslog && \
  adduser -S -G syslog syslog
 
