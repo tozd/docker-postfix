@@ -24,8 +24,16 @@ fi
 
 # We have to start and stop postfix first through init.d to populate
 # postfix spool directory for chroot in which postfix is running.
-/etc/init.d/postfix start
-/etc/init.d/postfix abort
+# We do it a bit differently in alpine as the init.d scripts use
+# openrc-run which is not supported by alpine very well, as the 
+# use on init systems is discouraged in general
+if [ -f /etc/alpine-release ]; then
+  /usr/sbin/postfix -c /etc/postfix start >/dev/null 2>&1
+  /usr/sbin/postfix -c /etc/postfix abort >/dev/null 2>&1
+else
+  /etc/init.d/postfix start
+  /etc/init.d/postfix abort
+fi
 
 # Is there any other script to run here?
 [ -f /etc/service/postfix/run.initialization ] && source /etc/service/postfix/run.initialization
