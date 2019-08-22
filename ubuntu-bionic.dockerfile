@@ -1,4 +1,4 @@
-FROM tozd/runit:ubuntu-xenial
+FROM tozd/runit:ubuntu-bionic
 
 EXPOSE 25/tcp 465/tcp 587/tcp
 
