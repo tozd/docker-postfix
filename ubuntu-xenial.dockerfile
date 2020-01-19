@@ -28,7 +28,6 @@ RUN \
  postconf -# myhostname && \
  postconf -e inet_protocols=ipv4 && \
  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.d/50-default.conf && \
- find /var/spool/postfix -user 101 -exec chown postfix '{}' '+' && \
- chown -R postfix:postfix /var/spool/postfix/maildrop /var/spool/postfix/public
+ find /var/spool/postfix -user 101 -exec chown postfix '{}' '+'
 
 COPY ./etc /etc
