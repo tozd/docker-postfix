@@ -38,4 +38,4 @@ fi
 # Is there any other script to run here?
 [ -f /etc/service/postfix/run.initialization ] && source /etc/service/postfix/run.initialization
 
-exec /usr/lib/postfix/master -c /etc/postfix -d 2>&1
+exec /usr/lib/postfix/sbin/master -c /etc/postfix -d 2>&1

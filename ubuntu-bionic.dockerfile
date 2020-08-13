@@ -27,6 +27,7 @@ RUN \
  postconf -e smtpd_banner='$myhostname ESMTP $mail_name' && \
  postconf -# myhostname && \
  postconf -e inet_protocols=ipv4 && \
- sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.d/50-default.conf
+ sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.d/50-default.conf && \
+ find /var/spool/postfix -user 101 -exec chown postfix '{}' '+'
 
 COPY ./etc /etc
