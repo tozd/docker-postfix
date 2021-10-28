@@ -25,3 +25,4 @@ RUN postconf -e mydestination="localhost.localdomain, localhost" && \
  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.conf
 
 COPY ./etc /etc
+COPY ./etc-trusty /etc
