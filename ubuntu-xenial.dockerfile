@@ -1,4 +1,4 @@
-FROM tozd/runit:ubuntu-xenial
+FROM registry.gitlab.com/tozd/docker/runit:ubuntu-xenial
 
 EXPOSE 25/tcp 465/tcp 587/tcp
 

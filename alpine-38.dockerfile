@@ -1,4 +1,4 @@
-FROM tozd/runit:alpine-38
+FROM registry.gitlab.com/tozd/docker/runit:alpine-38
 
 EXPOSE 25/tcp 465/tcp 587/tcp
 
