@@ -30,3 +30,4 @@ RUN \
  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.d/50-default.conf
 
 COPY ./etc /etc
+COPY ./etc-trusty /etc
