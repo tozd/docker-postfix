@@ -17,8 +17,8 @@ RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set
  echo postfix postfix/mynetworks string "127.0.0.0/8" | debconf-set-selections && \
  echo postfix postfix/mailname string temporary.example.com | debconf-set-selections && \
  apt-get update -q -q && \
- apt-get --yes --force-yes install postfix && \
  apt-get --yes --force-yes --no-install-recommends install rsyslog && \
+ apt-get --yes --force-yes install postfix && \
  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
 # We disable IPv6 for now, IPv6 is available in Docker even if the host does not have IPv6 connectivity.
