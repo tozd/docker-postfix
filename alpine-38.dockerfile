@@ -24,5 +24,6 @@ RUN postconf -e mydestination="localhost.localdomain, localhost" && \
  postconf -e inet_protocols=ipv4 && \
  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.conf
 
+ENV POSTFIX_PATH /usr/lib/postfix/master
+
 COPY ./etc /etc
-COPY ./etc-trusty /etc

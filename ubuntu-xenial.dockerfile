@@ -29,4 +29,6 @@ RUN \
  postconf -e inet_protocols=ipv4 && \
  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.d/50-default.conf
 
+ENV POSTFIX_PATH /usr/lib/postfix/sbin/master
+
 COPY ./etc /etc
