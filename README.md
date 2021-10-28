@@ -1,4 +1,15 @@
-Image providing [Postfix](http://www.postfix.org/).
+# tozd/postfix
+
+<https://gitlab.com/tozd/docker/postfix>
+
+Available as:
+
+* [`tozd/postfix`](https://hub.docker.com/r/tozd/postfix)
+* [`registry.gitlab.com/tozd/docker/postfix`](https://gitlab.com/tozd/docker/postfix/container_registry)
+
+## Description
+
+Docker image providing [Postfix](http://www.postfix.org/).
 
 You should make sure you mount spool volume (`/var/spool/postfix`) so that you do not
 lose e-mail data when you are recreating a container. If a volume is empty, image
