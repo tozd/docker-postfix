@@ -31,11 +31,11 @@ if [ -f /etc/alpine-release ]; then
   /usr/sbin/postfix -c /etc/postfix start >/dev/null 2>&1
   /usr/sbin/postfix -c /etc/postfix abort >/dev/null 2>&1
 else
-  /etc/init.d/postfix start
-  /etc/init.d/postfix abort
+  /etc/init.d/postfix start >/dev/null 2>&1
+  /etc/init.d/postfix abort >/dev/null 2>&1
 fi
 
 # Is there any other script to run here?
 [ -f /etc/service/postfix/run.initialization ] && source /etc/service/postfix/run.initialization
 
-exec "$POSTFIX_PATH" -c /etc/postfix -d 2>&1
+exec "$POSTFIX_PATH" -c /etc/postfix

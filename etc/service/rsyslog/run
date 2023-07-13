@@ -6,4 +6,4 @@ rm -f /var/run/rsyslogd.pid
 mkdir -p /var/log/postfix
 chown syslog:adm /var/log/postfix
 
-exec /usr/sbin/rsyslogd -n 2>&1
+exec /usr/sbin/rsyslogd -n
