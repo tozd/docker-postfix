@@ -50,6 +50,13 @@ If you are extending this image, you can add two scripts which will be run at a 
 - `/etc/service/postfix/run.initialization` – will be run after the container is initialized, but before the
   Postfix daemon is run
 
+If you just need programs inside your Docker images to send e-mails using `sendmail` program
+locally, consider using [tozd/mailer](https://gitlab.com/tozd/docker/mailer) or
+[tozd/nginx-mailer](https://gitlab.com/tozd/docker/nginx-mailer) Docker image as your base.
+This `tozd/postfix` Docker image delivers e-mails to wide Internet by itself.
+Then you can configure `tozd/mailer`-based containers to relay e-mails to one `tozd/postfix`
+container which then sends e-mails out.
+
 ## GitHub mirror
 
 There is also a [read-only GitHub mirror available](https://github.com/tozd/docker-postfix),
