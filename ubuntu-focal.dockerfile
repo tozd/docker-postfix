@@ -31,4 +31,6 @@ RUN \
 
 ENV POSTFIX_PATH /usr/lib/postfix/sbin/master
 
-COPY ./etc /etc
+COPY ./etc/aliases /etc/aliases
+COPY ./etc/service/postfix /etc/service/postfix
+COPY ./etc/service/rsyslog /etc/service/rsyslog

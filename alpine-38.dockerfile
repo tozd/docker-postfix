@@ -26,4 +26,6 @@ RUN postconf -e mydestination="localhost.localdomain, localhost" && \
 
 ENV POSTFIX_PATH /usr/lib/postfix/master
 
-COPY ./etc /etc
+COPY ./etc/aliases /etc/aliases
+COPY ./etc/service/postfix /etc/service/postfix
+COPY ./etc/service/rsyslog /etc/service/rsyslog
