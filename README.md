@@ -24,6 +24,32 @@ Available as:
 - `alpine-314`: Postfix 3.6.4
 - `alpine-316`: Postfix 3.7.6
 
+## Volumes
+
+- `/var/log/postfix`: Log files.
+- `/var/spool/postfix`: Persist this volume to not lose state.
+
+## Variables
+
+- `MAILNAME`: `/etc/mailname` and [`myhostname`](https://www.postfix.org/postconf.5.html#myhostname) Postfix configuration option are set to this value.
+- `MY_NETWORKS`: [`mynetworks`](https://www.postfix.org/postconf.5.html#mynetworks)
+  Postfix configuration option is set to this value. Default is `172.17.0.0/16 127.0.0.0/8`.
+- `MY_DESTINATION`: [`mydestination`](https://www.postfix.org/postconf.5.html#mynetworks)
+  Postfix configuration option is set to this value.
+  If you are not extending this Docker image to also deliver local (inside the container)
+  e-mails then you generally do not have to change the default.
+  Default is `localhost.localdomain, localhost`.
+- `ROOT_ALIAS`: E-mail to which local (inside the container) e-mails to `root` user
+  are send.
+  If you are not extending this Docker image you generally do not have to set this
+  as there are no e-mails send to the `root` user from inside the container.
+
+## Ports
+
+- `25/tcp`: SMTP port.
+- `465/tcp`: SMTPS port.
+- `587/tcp`: Mail submission port.
+
 ## Description
 
 Docker image providing [Postfix](http://www.postfix.org/).
