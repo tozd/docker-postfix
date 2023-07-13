@@ -59,7 +59,7 @@ docker run -d --name test --network testnet -e MAILNAME -e MY_NETWORKS -e LOG_TO
 cleanup_docker=1
 
 echo "Running mailhog Docker image"
-docker run -d --name mailhog --network testnet -p 8025:8025 mailhog/mailhog -hostname mailhog -smtp-bind-addr :25
+docker run -d --name mailhog --network testnet -p 8025:8025 mailhog/mailhog:v1.0.1 -hostname mailhog -smtp-bind-addr :25
 cleanup_mailhog=1
 
 echo "Running mailer Docker image"
