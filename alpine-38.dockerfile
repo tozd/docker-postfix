@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/tozd/docker/runit:alpine-38
+FROM registry.gitlab.com/tozd/docker/dinit:alpine-38
 
 EXPOSE 25/tcp 465/tcp 587/tcp
 
@@ -14,15 +14,15 @@ ENV ROOT_ALIAS admin@example.com
 COPY ./etc/aliases /etc/aliases
 
 RUN apk add --no-cache postfix postfix-pcre rsyslog sed && \
- addgroup -S syslog && \
- adduser -S -G syslog syslog
+  addgroup -S syslog && \
+  adduser -S -G syslog syslog
 
 # We disable IPv6 for now, IPv6 is available in Docker even if the host does not have IPv6 connectivity.
 RUN postconf -e mydestination="localhost.localdomain, localhost" && \
- postconf -e smtpd_banner='$myhostname ESMTP $mail_name' && \
- postconf -# myhostname && \
- postconf -e inet_protocols=ipv4 && \
- sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.conf
+  postconf -e smtpd_banner='$myhostname ESMTP $mail_name' && \
+  postconf -# myhostname && \
+  postconf -e inet_protocols=ipv4 && \
+  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.conf
 
 ENV POSTFIX_PATH /usr/lib/postfix/master
 
