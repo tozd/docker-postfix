@@ -22,7 +22,8 @@ RUN postconf -e mydestination="localhost.localdomain, localhost" && \
   postconf -e smtpd_banner='$myhostname ESMTP $mail_name' && \
   postconf -# myhostname && \
   postconf -e inet_protocols=ipv4 && \
-  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.conf
+  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.conf && \
+  sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 
 ENV POSTFIX_PATH="/usr/lib/postfix/master"
 
