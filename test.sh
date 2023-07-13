@@ -72,7 +72,7 @@ sleep 10
 echo "Testing"
 # We inside mailer container use sendmail to send an e-mail to mailhog.
 # Mailer container first sends it to test container which then in turn sends it to mailhog.
-/bin/echo -e "Subject: test\nTo: test@mailhog" | docker exec mailer sendmail -t
+/bin/echo -e "Subject: test\nTo: test@mailhog" | docker exec -i mailer sendmail -t
 sleep 10
 wget -q -O - http://docker:8025/api/v2/messages | jq -r .items[0].Raw.To[0] | grep -F test@mailhog
 echo "Success"
