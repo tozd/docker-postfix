@@ -7,6 +7,23 @@ Available as:
 - [`tozd/postfix`](https://hub.docker.com/r/tozd/postfix)
 - [`registry.gitlab.com/tozd/docker/postfix`](https://gitlab.com/tozd/docker/postfix/container_registry)
 
+## Image inheritance
+
+[`tozd/base`](https://gitlab.com/tozd/docker/base) ← [`tozd/dinit`](https://gitlab.com/tozd/docker/dinit) ← `tozd/postfix`
+
+## Tags
+
+- `ubuntu-trusty`: Postfix 2.11.0
+- `ubuntu-xenial`: Postfix 3.1.0
+- `ubuntu-bionic`: Postfix 3.3.0
+- `ubuntu-focal`: Postfix 3.4.13
+- `ubuntu-jammy`: Postfix 3.6.4
+- `alpine-38`: Postfix 3.3.0
+- `alpine-310`: Postfix 3.4.7
+- `alpine-312`: Postfix 3.5.16
+- `alpine-314`: Postfix 3.6.4
+- `alpine-316`: Postfix 3.7.6
+
 ## Description
 
 Docker image providing [Postfix](http://www.postfix.org/).
@@ -32,3 +49,8 @@ If you are extending this image, you can add two scripts which will be run at a 
 - `/etc/service/postfix/run.config` – to prepare any custom configuration, before anything else is run
 - `/etc/service/postfix/run.initialization` – will be run after the container is initialized, but before the
   Postfix daemon is run
+
+## GitHub mirror
+
+There is also a [read-only GitHub mirror available](https://github.com/tozd/docker-postfix),
+if you need to fork the project there.
