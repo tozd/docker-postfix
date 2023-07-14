@@ -26,7 +26,7 @@ Available as:
 
 ## Volumes
 
-- `/var/log/postfix`: Log files.
+- `/var/log/postfix`: Log files when `LOG_TO_STDOUT` is not set to `1`.
 - `/var/spool/postfix`: Persist this volume to not lose state.
 
 ## Variables
