@@ -6,5 +6,5 @@ if [ "${LOG_TO_STDOUT}" != "1" ]; then
 
   exec chpst -u nobody:nogroup svlogd -tt /var/log/postfix
 else
-  exec chpst -u nobody:nogroup regex2json "^\\s*(?P<time___time__Stamp>\\S+ \\d+ \\d+:\\d+:\\d+) (?P<host>\\S+) (?P<program>\\S+)\\[(?P<pid___int>\\d+)\\]: (?:(?P<severity>info|warning|error|fatal|panic): )?(?P<msg>.+?)\\s*$"
+  exec chpst -u nobody:nogroup regex2json "^\\s*(?P<time___time__Stamp>\\S+ \\d+ \\d+:\\d+:\\d+) (?P<host>\\S+) (?P<program>\\S+)\\[(?P<pid___int>\\d+)\\]: (?:(?P<severity___optional>info|warning|error|fatal|panic): )?(?P<msg>.+?)\\s*$"
 fi
