@@ -26,7 +26,7 @@ Available as:
 
 ## Volumes
 
-- `/var/log/postfix`: Log files when `LOG_TO_STDOUT` is not set to `1`.
+- `/var/log/postfix`: Log files when `LOG_TO_STDOUT` is not set to `1`. Logs are **not** rotated on versions older than Postfix 3.4.
 - `/var/spool/postfix`: Persist this volume to not lose state.
 
 ## Variables
