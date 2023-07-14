@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-postconf -e maillog_file=/dev/stdout
-
 if [ "$MAILNAME" ]; then
   echo "$MAILNAME" > /etc/mailname
   postconf -e myhostname="$MAILNAME"
@@ -40,4 +38,4 @@ fi
 # Is there any other script to run here?
 [ -f /etc/service/postfix/run.initialization ] && source /etc/service/postfix/run.initialization
 
-exec "$POSTFIX_PATH" -c /etc/postfix -s
+exec "$POSTFIX_PATH" -c /etc/postfix

@@ -43,6 +43,7 @@ Available as:
   are send.
   If you are not extending this Docker image you generally do not have to set this
   as there are no e-mails send to the `root` user from inside the container.
+- `LOG_TO_STDOUT`: If set to `1` output logs to stdout (retrievable using `docker logs`) instead of log volumes. Available for Postfix 3.4 and newer.
 
 ## Ports
 
@@ -57,6 +58,8 @@ Docker image providing [Postfix](http://www.postfix.org/).
 You should make sure you mount spool volume (`/var/spool/postfix`) so that you do not
 lose e-mail data when you are recreating a container. If a volume is empty, image
 will initialize it at the first startup.
+
+When `LOG_TO_STDOUT` is set to `1`, Docker image logs output to stdout and stderr. All stdout output is JSON.
 
 By default it is configured for sending outbound e-mails. Otherwise, you can extend
 the image and configure it differently. See these examples:

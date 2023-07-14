@@ -9,6 +9,7 @@ ENV MAILNAME=mail.example.com
 ENV MY_NETWORKS="172.17.0.0/16 127.0.0.0/8"
 ENV MY_DESTINATION="localhost.localdomain, localhost"
 ENV ROOT_ALIAS="admin@example.com"
+ENV LOG_TO_STDOUT=0
 
 # /etc/aliases should be available at postfix installation.
 COPY ./etc/aliases /etc/aliases
@@ -17,7 +18,6 @@ RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set
   echo postfix postfix/mynetworks string "127.0.0.0/8" | debconf-set-selections && \
   echo postfix postfix/mailname string temporary.example.com | debconf-set-selections && \
   apt-get update -q -q && \
-  apt-get --yes --force-yes --no-install-recommends install rsyslog && \
   apt-get --yes --force-yes install postfix && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
@@ -26,13 +26,9 @@ RUN \
   postconf -e mydestination="localhost.localdomain, localhost" && \
   postconf -e smtpd_banner='$myhostname ESMTP $mail_name' && \
   postconf -# myhostname && \
-  postconf -e inet_protocols=ipv4 && \
-  sed -i 's/\/var\/log\/mail/\/var\/log\/postfix\/mail/' /etc/rsyslog.d/50-default.conf && \
-  rm -f /etc/rsyslog.d/postfix.conf && \
-  sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
+  postconf -e inet_protocols=ipv4
 
 ENV POSTFIX_PATH="/usr/lib/postfix/sbin/master"
 
 COPY ./etc/aliases /etc/aliases
 COPY ./etc/service/postfix /etc/service/postfix
-COPY ./etc/service/rsyslog /etc/service/rsyslog
