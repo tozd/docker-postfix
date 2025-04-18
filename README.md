@@ -24,6 +24,12 @@ Available as:
 - `alpine-314`: Postfix 3.6.4
 - `alpine-316`: Postfix 3.7.6
 
+## Alpine Linux image notes
+
+- [Alpine Linux does not support `hash` or `btree` lookup tables](https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.13.0#Deprecation_of_Berkeley_DB_.28BDB.29) 
+- Use `lmdb` type databases instead for example:
+  - `virtual_alias_maps = lmdb:/etc/postfix/virtual`
+
 ## Volumes
 
 - `/var/log/postfix`: Log files when `LOG_TO_STDOUT` is not set to `1`. Logs are **not** rotated on versions older than Postfix 3.4.
