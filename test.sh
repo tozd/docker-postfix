@@ -68,6 +68,7 @@ cleanup_mailer=1
 
 echo "Sleeping"
 sleep 30
+docker ps -a
 
 echo "Testing"
 # We inside mailer container use sendmail to send an e-mail to mailhog.
