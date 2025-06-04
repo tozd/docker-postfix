@@ -32,22 +32,26 @@ fi
 if [ -f /etc/alpine-release ]; then
   output=$(/usr/sbin/postfix -c /etc/postfix start 2>&1)
   if [ $? -ne 0 ]; then
+    echo "init start failed"
     echo "$output"
     exit "$?"
   fi
   output=$(/usr/sbin/postfix -c /etc/postfix abort 2>&1)
   if [ $? -ne 0 ]; then
+    echo "init abort failed"
     echo "$output"
     exit "$?"
   fi
 else
   output=$(/etc/init.d/postfix start 2>&1)
   if [ $? -ne 0 ]; then
+    echo "init start failed"
     echo "$output"
     exit "$?"
   fi
   output=$(/etc/init.d/postfix abort 2>&1)
   if [ $? -ne 0 ]; then
+    echo "init abort failed"
     echo "$output"
     exit "$?"
   fi
