@@ -28,12 +28,6 @@ Available as:
 - `alpine-320`: Postfix 3.9.3
 - `alpine-322`: Postfix 3.10.2
 
-## Alpine Linux image notes
-
-- [Alpine Linux does not support `hash` or `btree` lookup tables](https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.13.0#Deprecation_of_Berkeley_DB_.28BDB.29)
-- Use `lmdb` type databases instead for example:
-  - `virtual_alias_maps = lmdb:/etc/postfix/virtual`
-
 ## Volumes
 
 - `/var/log/postfix`: Log files when `LOG_TO_STDOUT` is not set to `1`. Logs are **not** rotated on versions older than Postfix 3.4.
@@ -95,6 +89,12 @@ locally, consider using [tozd/mailer](https://gitlab.com/tozd/docker/mailer) or
 This `tozd/postfix` Docker image delivers e-mails to wide Internet by itself.
 Then you can configure `tozd/mailer`-based containers to relay e-mails to one `tozd/postfix`
 container which then sends e-mails out.
+
+### Alpine Linux image notes
+
+- [Alpine Linux does not support `hash` or `btree` lookup tables](https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.13.0#Deprecation_of_Berkeley_DB_.28BDB.29)
+- Use `lmdb` type databases instead for example:
+  - `virtual_alias_maps = lmdb:/etc/postfix/virtual`
 
 ## GitHub mirror
 
