@@ -39,6 +39,8 @@ if [ -f /etc/alpine-release ]; then
     echo "$output" >&2
     exit 1
   fi
+  # We ignore the exit code because abort sometimes tries to kill a process which
+  # does not exit anymore and thus return a non-zero exit code.
   /usr/sbin/postfix -c /etc/postfix abort >/dev/null 2>&1 || true
 else
   if ! output=$(/etc/init.d/postfix start 2>&1); then
@@ -46,6 +48,8 @@ else
     echo "$output" >&2
     exit 1
   fi
+  # We ignore the exit code because abort sometimes tries to kill a process which
+  # does not exit anymore and thus return a non-zero exit code.
   /etc/init.d/postfix abort >/dev/null 2>&1 || true
 fi
 
