@@ -32,30 +32,26 @@ fi
 # openrc-run which is not supported by alpine very well, as the
 # use of init systems is discouraged in general.
 if [ -f /etc/alpine-release ]; then
-  output=$(/usr/sbin/postfix -c /etc/postfix start 2>&1)
-  if [ $? -ne 0 ]; then
+  if ! output=$(/usr/sbin/postfix -c /etc/postfix start 2>&1); then
     echo "init start failed" >&2
     echo "$output" >&2
-    exit "$?"
+    exit 1
   fi
-  output=$(/usr/sbin/postfix -c /etc/postfix abort 2>&1)
-  if [ $? -ne 0 ]; then
+  if ! output=$(/usr/sbin/postfix -c /etc/postfix abort 2>&1); then
     echo "init abort failed" >&2
     echo "$output" >&2
-    exit "$?"
+    exit 1
   fi
 else
-  output=$(/etc/init.d/postfix start 2>&1)
-  if [ $? -ne 0 ]; then
+  if ! output=$(/etc/init.d/postfix start 2>&1); then
     echo "init start failed" >&2
     echo "$output" >&2
-    exit "$?"
+    exit 1
   fi
-  output=$(/etc/init.d/postfix abort 2>&1)
-  if [ $? -ne 0 ]; then
+  if ! output=$(/etc/init.d/postfix abort 2>&1); then
     echo "init abort failed" >&2
     echo "$output" >&2
-    exit "$?"
+    exit 1
   fi
 fi
 

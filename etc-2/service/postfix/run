@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+trap 'echo "ERROR: $BASH_SOURCE:$LINENO $BASH_COMMAND" >&2' ERR
+
 if [ "$MAILNAME" ]; then
   echo "$MAILNAME" > /etc/mailname
   postconf -e myhostname="$MAILNAME"
@@ -26,13 +28,29 @@ fi
 # postfix spool directory for chroot in which postfix is running.
 # We do it a bit differently in alpine as the init.d scripts use
 # openrc-run which is not supported by alpine very well, as the
-# use on init systems is discouraged in general
+# use of init systems is discouraged in general.
 if [ -f /etc/alpine-release ]; then
-  /usr/sbin/postfix -c /etc/postfix start >/dev/null 2>&1
-  /usr/sbin/postfix -c /etc/postfix abort >/dev/null 2>&1
+  if ! output=$(/usr/sbin/postfix -c /etc/postfix start 2>&1); then
+    echo "init start failed" >&2
+    echo "$output" >&2
+    exit 1
+  fi
+  if ! output=$(/usr/sbin/postfix -c /etc/postfix abort 2>&1); then
+    echo "init abort failed" >&2
+    echo "$output" >&2
+    exit 1
+  fi
 else
-  /etc/init.d/postfix start >/dev/null 2>&1
-  /etc/init.d/postfix abort >/dev/null 2>&1
+  if ! output=$(/etc/init.d/postfix start 2>&1); then
+    echo "init start failed" >&2
+    echo "$output" >&2
+    exit 1
+  fi
+  if ! output=$(/etc/init.d/postfix abort 2>&1); then
+    echo "init abort failed" >&2
+    echo "$output" >&2
+    exit 1
+  fi
 fi
 
 # Is there any other script to run here?

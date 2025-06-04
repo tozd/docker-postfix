@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+trap 'echo "ERROR: $BASH_SOURCE:$LINENO $BASH_COMMAND" >&2' ERR
+
 # A stale PID file can prevent rsyslogd from running.
 rm -f /var/run/rsyslogd.pid
 
