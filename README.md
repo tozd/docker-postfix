@@ -18,15 +18,19 @@ Available as:
 - `ubuntu-bionic`: Postfix 3.3.0
 - `ubuntu-focal`: Postfix 3.4.13
 - `ubuntu-jammy`: Postfix 3.6.4
+- `ubuntu-noble`: Postfix 3.8.6
 - `alpine-38`: Postfix 3.3.0
 - `alpine-310`: Postfix 3.4.7
 - `alpine-312`: Postfix 3.5.16
 - `alpine-314`: Postfix 3.6.4
 - `alpine-316`: Postfix 3.7.6
+- `alpine-318`: Postfix 3.8.9
+- `alpine-320`: Postfix 3.9.3
+- `alpine-322`: Postfix 3.10.2
 
 ## Alpine Linux image notes
 
-- [Alpine Linux does not support `hash` or `btree` lookup tables](https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.13.0#Deprecation_of_Berkeley_DB_.28BDB.29) 
+- [Alpine Linux does not support `hash` or `btree` lookup tables](https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.13.0#Deprecation_of_Berkeley_DB_.28BDB.29)
 - Use `lmdb` type databases instead for example:
   - `virtual_alias_maps = lmdb:/etc/postfix/virtual`
 
