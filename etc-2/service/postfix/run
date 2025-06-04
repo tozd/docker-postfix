@@ -1,9 +1,6 @@
 #!/bin/bash -e
 
-echo "starting" >&2
-
 trap 'echo "ERROR: $BASH_SOURCE:$LINENO $BASH_COMMAND" >&2' ERR
-trap 'echo "EXIT: $BASH_SOURCE:$LINENO $BASH_COMMAND" >&2' EXIT
 
 if [ "$MAILNAME" ]; then
   echo "$MAILNAME" > /etc/mailname
@@ -38,22 +35,14 @@ if [ -f /etc/alpine-release ]; then
     echo "$output" >&2
     exit 1
   fi
-  if ! output=$(/usr/sbin/postfix -c /etc/postfix abort 2>&1); then
-    echo "init abort failed" >&2
-    echo "$output" >&2
-    exit 1
-  fi
+  /usr/sbin/postfix -c /etc/postfix abort >/dev/null 2>&1 || true
 else
   if ! output=$(/etc/init.d/postfix start 2>&1); then
     echo "init start failed" >&2
     echo "$output" >&2
     exit 1
   fi
-  if ! output=$(/etc/init.d/postfix abort 2>&1); then
-    echo "init abort failed" >&2
-    echo "$output" >&2
-    exit 1
-  fi
+  /etc/init.d/postfix abort >/dev/null 2>&1 || true
 fi
 
 # Is there any other script to run here?
