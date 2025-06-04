@@ -30,7 +30,7 @@ fi
 # postfix spool directory for chroot in which postfix is running.
 # We do it a bit differently in alpine as the init.d scripts use
 # openrc-run which is not supported by alpine very well, as the
-# use on init systems is discouraged in general
+# use of init systems is discouraged in general.
 if [ -f /etc/alpine-release ]; then
   output=$(/usr/sbin/postfix -c /etc/postfix start 2>&1)
   if [ $? -ne 0 ]; then
