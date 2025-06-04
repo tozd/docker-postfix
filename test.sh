@@ -67,7 +67,7 @@ docker run -d --name mailer --network testnet -e LOG_TO_STDOUT=1 -e REMOTES=test
 cleanup_mailer=1
 
 echo "Sleeping"
-sleep 30
+sleep 20
 docker ps -a
 
 echo "Testing"
