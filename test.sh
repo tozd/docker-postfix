@@ -67,7 +67,8 @@ docker run -d --name mailer --network testnet -e LOG_TO_STDOUT=1 -e REMOTES=test
 cleanup_mailer=1
 
 echo "Sleeping"
-sleep 40
+# QEMU emulation can be quite slow.
+sleep 60
 docker ps -a
 
 echo "Testing"
