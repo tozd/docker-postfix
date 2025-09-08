@@ -28,6 +28,11 @@ Available as:
 - `alpine-320`: Postfix 3.9.3
 - `alpine-322`: Postfix 3.10.2
 
+## Architectures
+
+- `amd64`
+- `arm64`
+
 ## Volumes
 
 - `/var/log/postfix`: Log files when `LOG_TO_STDOUT` is not set to `1`. Logs are **not** rotated on versions older than Postfix 3.4.
