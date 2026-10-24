@@ -49,6 +49,13 @@ else
   /etc/init.d/postfix abort >/dev/null 2>&1 || true
 fi
 
+# Abort only signals the master process and does not wait for it to exit. While it is still
+# running, it holds the lock and the master process started below fails.
+for i in $(seq 1 100); do
+  /usr/sbin/postfix -c /etc/postfix status >/dev/null 2>&1 || break
+  sleep 0.1
+done
+
 # Is there any other script to run here?
 [ -f /etc/service/postfix/run.initialization ] && source /etc/service/postfix/run.initialization
 

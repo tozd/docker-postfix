@@ -55,7 +55,8 @@ export MAILNAME=test
 export MY_NETWORKS="$(docker network inspect testnet | jq -r '.[0].IPAM.Config[0].Subnet') 127.0.0.0/8"
 
 echo "Running Docker image"
-docker run -d --name test --network testnet -e MAILNAME -e MY_NETWORKS -e LOG_TO_STDOUT=1 "${CI_REGISTRY_IMAGE}:${TAG}"
+# At info level dinit logs exit statuses of services, which explains why the container terminated.
+docker run -d --name test --network testnet -e MAILNAME -e MY_NETWORKS -e LOG_TO_STDOUT=1 -e DINIT_LOG_LEVEL=info "${CI_REGISTRY_IMAGE}:${TAG}"
 cleanup_docker=1
 
 echo "Running mailhog Docker image"
@@ -66,15 +67,33 @@ echo "Running mailer Docker image"
 docker run -d --name mailer --network testnet -e LOG_TO_STDOUT=1 -e REMOTES=test registry.gitlab.com/tozd/docker/mailer:ubuntu-jammy
 cleanup_mailer=1
 
-echo "Sleeping"
+echo "Waiting for postfix"
 # QEMU emulation can be quite slow.
-sleep 60
+for i in $(seq 1 180); do
+  if [ "$(docker inspect --format '{{.State.Running}}' test)" != "true" ]; then
+    docker ps -a
+    echo "Docker image terminated"
+    exit 1
+  fi
+  if docker exec test /usr/sbin/postfix status >/dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
 docker ps -a
+docker exec test /usr/sbin/postfix status
 
 echo "Testing"
 # We inside mailer container use sendmail to send an e-mail to mailhog.
 # Mailer container first sends it to test container which then in turn sends it to mailhog.
 /bin/echo -e "Subject: test\nTo: test@mailhog" | docker exec -i mailer sendmail -t
-sleep 10
-wget -q -O - http://docker:8025/api/v2/messages | jq -r .items[0].Raw.To[0] | grep -F test@mailhog
-echo "Success"
+# nullmailer retries failed deliveries only after a pause of one minute.
+for i in $(seq 1 120); do
+  if wget -q -O - http://docker:8025/api/v2/messages | jq -r .items[0].Raw.To[0] | grep -F test@mailhog; then
+    echo "Success"
+    exit 0
+  fi
+  sleep 1
+done
+echo "E-mail not delivered"
+exit 1
