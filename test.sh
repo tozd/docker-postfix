@@ -68,20 +68,30 @@ docker run -d --name mailer --network testnet -e LOG_TO_STDOUT=1 -e REMOTES=test
 cleanup_mailer=1
 
 echo "Waiting for postfix"
+# The run script first starts and stops postfix to initialize it, so postfix is also running for a while before
+# it is ready. The final master process runs with the PID of the run script, which dinit logs at info level.
 # QEMU emulation can be quite slow.
+ready=0
 for i in $(seq 1 180); do
   if [ "$(docker inspect --format '{{.State.Running}}' test)" != "true" ]; then
     docker ps -a
     echo "Docker image terminated"
     exit 1
   fi
-  if docker exec test /usr/sbin/postfix status >/dev/null 2>&1; then
+  pid="$(docker logs test 2>&1 | sed -n 's/.* postfix\/run: running with PID \([0-9]*\).*/\1/p' | head -n 1)"
+  if [ -n "$pid" ] && docker exec test /usr/sbin/postfix status >/dev/null 2>&1 && \
+    [ "$(docker exec test sh -c 'cat "$(postconf -h queue_directory)/pid/master.pid"' 2>/dev/null | tr -d ' \n')" = "$pid" ]; then
+    ready=1
     break
   fi
   sleep 1
 done
 docker ps -a
-docker exec test /usr/sbin/postfix status
+if [ "$ready" -ne 1 ]; then
+  docker exec test /usr/sbin/postfix status || true
+  echo "Postfix not running"
+  exit 1
+fi
 
 echo "Testing"
 # We inside mailer container use sendmail to send an e-mail to mailhog.
