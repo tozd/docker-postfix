@@ -49,7 +49,7 @@ Available as:
   e-mails then you generally do not have to change the default.
   Default is `localhost.localdomain, localhost`.
 - `ROOT_ALIAS`: E-mail to which local (inside the container) e-mails to `root` user
-  are send.
+  are sent.
   If you are not extending this Docker image you generally do not have to set this
   as there are no e-mails send to the `root` user from inside the container.
 - `LOG_TO_STDOUT`: If set to `1` output logs to stdout (retrievable using `docker logs`) instead of log volumes. Available for Postfix 3.4 and newer.
